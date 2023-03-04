@@ -1,2 +1,2 @@
 # stf-monitor
-Angular + Tailwind app using OFR's Short-term Funding Monitor - API
+Ionic Angular app using OFR's Short-term Funding Monitor - API
