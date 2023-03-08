@@ -1,3 +1,11 @@
-<p>
-  data-set-selector works!
-</p>
+<ion-content class="ion-padding">
+  <h1>Mnemonics</h1>
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let mnemonic of mnemonics$ | async">
+      <ion-item slot="header">
+        <ion-label>{{mnemonic}}</ion-label>
+      </ion-item>
+      <app-data-set></app-data-set>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>
