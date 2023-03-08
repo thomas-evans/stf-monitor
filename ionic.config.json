@@ -1,0 +1,7 @@
+{
+  "name": "stf-monitor",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
