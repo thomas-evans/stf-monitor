@@ -1,0 +1,6 @@
+<ion-item (click)="emitSeriesRequest(data.mnemonic)" button="" detail="true" *ngFor="let data of dataSet$ | async">
+  <ion-label>
+    <h3>{{data.mnemonic}}</h3>
+    <p>{{data.series_name}}</p>
+  </ion-label>
+</ion-item>

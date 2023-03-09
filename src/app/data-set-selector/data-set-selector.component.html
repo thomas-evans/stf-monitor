@@ -1,0 +1,6 @@
+<ion-accordion *ngFor="let mnemonic of mnemonics$ | async" [attr.value]="mnemonic">
+  <ion-item slot="header">
+    <ion-label>{{mnemonic}}</ion-label>
+  </ion-item>
+  <app-data-set [mnemonic]="mnemonic | lowercase" (seriesRequest)="sendSeriesRequest($event)" class="ion-padding" slot="content"></app-data-set>
+</ion-accordion>
