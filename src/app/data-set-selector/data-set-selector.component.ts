@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, NgModule} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {MnemonicsService} from "./data-access/mnemonics.service";
-import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, JsonPipe, LowerCasePipe, NgForOf, NgIf} from "@angular/common";
 import {DataSetComponent} from "./ui/data-set/data-set.component";
 
 @Component({
@@ -14,6 +14,10 @@ export class DataSetSelectorComponent {
   constructor(public mnemonicsService: MnemonicsService) {
   }
   mnemonics$ = this.mnemonicsService.getMnemonics();
+
+  sendSeriesRequest(event: string) {
+    console.log(event);
+  }
 }
 
 @NgModule({
@@ -25,7 +29,8 @@ export class DataSetSelectorComponent {
     NgForOf,
     AsyncPipe,
     JsonPipe,
-    NgIf
+    NgIf,
+    LowerCasePipe
   ],
   declarations: [DataSetSelectorComponent, DataSetComponent]
 })

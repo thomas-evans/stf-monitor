@@ -1,4 +1,6 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {DataSetService} from "../../data-access/data-set.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-data-set',
@@ -7,9 +9,21 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataSetComponent {
+  public mnemonic$ = new Subject<string>();
 
-  constructor() {
+  @Input()
+  set mnemonic(value: string) {
+    this.mnemonic$.next(value);
   }
 
+  @Output() seriesRequest = new EventEmitter<string>();
 
+  dataSet$ = this.dataSet.getDataSets(this.mnemonic$);
+
+  constructor(public dataSet: DataSetService) {
+  }
+
+  emitSeriesRequest(mnemonic:string) {
+    this.seriesRequest.emit(mnemonic);
+  }
 }

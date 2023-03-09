@@ -13,7 +13,7 @@ export class MnemonicsService {
     return this.http.get('https://data.financialresearch.gov/v1/metadata/mnemonics').pipe(
       catchError(() => EMPTY),
       map((value: any, _index: number) => value.map((value: string, _index:number) => value.substring(0, value.indexOf('-')))),
-      map((value: any, _index: number) => [...new Set(value)])
+      map((value: string, _index: number) => [...new Set(value)])
     );
   }
   constructor(private http: HttpClient) { }
