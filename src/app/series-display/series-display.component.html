@@ -1,0 +1,4 @@
+<pre *ngIf="fullSeries$ | async as data">
+  <app-metadata [metadata]="data.metadata"></app-metadata>
+  <app-chart-builder [aggregation]="data.timeseries.aggregation"></app-chart-builder>
+</pre>

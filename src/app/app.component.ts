@@ -7,5 +7,10 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  series: string = '';
   constructor() {}
+
+  sendSeriesRequest(series: string) {
+    this.series = series;
+  }
 }

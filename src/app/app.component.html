@@ -3,7 +3,7 @@
     <ion-content class="ion-padding">
       <h1>Mnemonics</h1>
       <ion-accordion-group>
-        <app-data-set-selector></app-data-set-selector>
+        <app-data-set-selector (seriesRequest)="sendSeriesRequest($event)" ></app-data-set-selector>
       </ion-accordion-group>
     </ion-content>
   </ion-menu>
@@ -17,13 +17,19 @@
             </ion-button>
           </ion-menu-toggle>
         </ion-buttons>
-        <ion-title>OFR Short-term Funding Monitor
-          <ion-chip [outline]="true" color="primary"><a
-            href="https://www.financialresearch.gov/short-term-funding-monitor/api/" target="_blank"
-            rel="nofollow noreferrer noopener">API Link</a></ion-chip>
+        <ion-title>
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          OFR Short-term Funding Monitor
+          <ion-chip color="primary">
+            <a href="https://www.financialresearch.gov/short-term-funding-monitor/api/" target="_blank"
+               rel="nofollow noreferrer noopener">API Reference</a>
+            <ion-icon name="exit-outline"></ion-icon>
+          </ion-chip>
         </ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding"></ion-content>
+    <ion-content class="ion-padding">
+      <app-series-display [series]="series"></app-series-display>
+    </ion-content>
   </ion-content>
 </ion-split-pane>
