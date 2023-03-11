@@ -4,6 +4,8 @@ import {Subject} from "rxjs";
 import {FullSeriesService} from "./data-access/full-series.service";
 import {ChartBuilderComponent} from "./ui/chart-builder/chart-builder.component";
 import {MetadataComponent} from "./ui/metadata/metadata.component";
+import {IonicModule} from "@ionic/angular";
+import {TitleCleanupPipe} from "./ui/metadata/utils/title-cleanup.pipe";
 
 @Component({
   selector: 'app-series-display',
@@ -26,13 +28,13 @@ export class SeriesDisplayComponent {
 }
 
 @NgModule({
-  declarations: [SeriesDisplayComponent, ChartBuilderComponent, MetadataComponent],
+  declarations: [SeriesDisplayComponent, ChartBuilderComponent, MetadataComponent, TitleCleanupPipe],
   exports: [
     SeriesDisplayComponent
   ],
   imports: [
     CommonModule,
-
+    IonicModule,
   ]
 })
 export class SeriesDisplayModule {

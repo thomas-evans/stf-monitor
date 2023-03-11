@@ -22,7 +22,7 @@ export class FullSeriesService {
       return this.http.get<FullSeries>(`https://data.financialresearch.gov/v1/series/full?mnemonic=${series}`).pipe(
         catchError(() => EMPTY),
         map((value) => Object.values(value)[0]),
-        tap(x => console.log(x))
+        tap(x => console.log(x.metadata))
       )
   }
   constructor(private http: HttpClient) { }

@@ -22,7 +22,7 @@ export interface metadata {
   unit: unit;
 }
 
-interface description {
+export interface description {
   vintage_approach: string;
   vintage: string;
   notes: string;
@@ -32,11 +32,11 @@ interface description {
   name: string;
 }
 
-interface rights {
+export interface rights {
   description: string;
 }
 
-interface schedule {
+export interface schedule {
   observation_period: string;
   seasonal_adjustment: string
   observation_frequency: string;
@@ -44,14 +44,14 @@ interface schedule {
   last_update: string;
 }
 
-interface release {
+export interface release {
   long_name: string;
   href: string;
   frequency: string;
   short_name: string;
 }
 
-interface unit {
+export interface unit {
   type: string;
   magnitude: number;
   display_magnitude: number;

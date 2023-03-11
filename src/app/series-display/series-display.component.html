@@ -1,4 +1,18 @@
-<pre *ngIf="fullSeries$ | async as data">
-  <app-metadata [metadata]="data.metadata"></app-metadata>
-  <app-chart-builder [aggregation]="data.timeseries.aggregation"></app-chart-builder>
-</pre>
+<ng-container *ngIf="fullSeries$ | async as data">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h1>{{data?.metadata?.release?.long_name}}</h1>
+        <h2>{{data?.metadata?.description?.name}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <app-chart-builder [aggregation]="data.timeseries.aggregation"></app-chart-builder>
+      </ion-col>
+      <ion-col>
+        <app-metadata [metadata]="data.metadata"></app-metadata>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-container>
