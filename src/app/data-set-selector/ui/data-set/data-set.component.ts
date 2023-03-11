@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {DataSetService} from "../../data-access/data-set.service";
 import {Subject} from "rxjs";
+import {MenuController} from "@ionic/angular";
 
 @Component({
   selector: 'app-data-set',
@@ -20,10 +21,10 @@ export class DataSetComponent {
 
   dataSet$ = this.dataSet.getDataSets(this.mnemonic$);
 
-  constructor(public dataSet: DataSetService) {
+  constructor(public dataSet: DataSetService, private menuController: MenuController) {
   }
 
-  emitSeriesRequest(mnemonic:string) {
-    this.seriesRequest.emit(mnemonic);
+  emitSeriesRequest(mnemonic: string) {
+    this.menuController.close().then(() => this.seriesRequest.emit(mnemonic));
   }
 }
