@@ -1,3 +1,31 @@
-<pre *ngIf="metadata as data">
-  {{data.description.description}}
-</pre>
+<!--suppress TypeScriptValidateTypes -->
+<!--https://youtrack.jetbrains.com/issue/WEB-51209/Angular-KeyValue-pipe-wrong-TS-generic-type-evaluation-->
+<ng-container *ngIf="metadata">
+  <h3>{{metadata.mnemonic}}</h3>
+  <ion-list [inset]="true">
+    <ion-list-header>
+      <h3>Description</h3>
+    </ion-list-header>
+    <ng-container *ngFor="let item of metadata.description | keyvalue">
+      <ion-item *ngIf="item.value">
+        <ion-label class="ion-text-wrap">{{item.key | titleCleanup | titlecase}}: {{item.value}}</ion-label>
+      </ion-item>
+    </ng-container>
+    <ion-list-header>
+      <h3>Schedule</h3>
+    </ion-list-header>
+    <ng-container *ngFor="let item of metadata.schedule | keyvalue">
+      <ion-item *ngIf="item.value">
+        <ion-label class="ion-text-wrap">{{item.key | titleCleanup | titlecase}}: {{item.value}}</ion-label>
+      </ion-item>
+    </ng-container>
+    <ion-list-header>
+      <h3>Unit</h3>
+    </ion-list-header>
+    <ng-container *ngFor="let item of metadata.unit | keyvalue">
+      <ion-item *ngIf="item.value">
+        <ion-label class="ion-text-wrap">{{item.key | titleCleanup | titlecase}}: {{item.value}}</ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+</ng-container>

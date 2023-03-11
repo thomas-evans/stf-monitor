@@ -8,7 +8,7 @@ import { metadata } from '../../data-access/interfaces/full-series';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetadataComponent  implements OnInit {
-  @Input() metadata?: metadata = undefined;
+  @Input() metadata: metadata | undefined;
   constructor() { }
 
   ngOnInit() {}
