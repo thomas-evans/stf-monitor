@@ -1,23 +1,23 @@
-<ion-split-pane when="sm" content-id="main-content">
-  <ion-menu contentId="main-content">
-    <ion-content class="ion-padding">
-      <h1>Mnemonics</h1>
-      <ion-accordion-group>
-        <app-data-set-selector (seriesRequest)="sendSeriesRequest($event)" ></app-data-set-selector>
-      </ion-accordion-group>
-    </ion-content>
-  </ion-menu>
-  <ion-content class="ion-page" id="main-content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-toggle>
-            <ion-button>
-              <ion-icon slot="icon-only" name="menu"></ion-icon>
-            </ion-button>
-          </ion-menu-toggle>
-        </ion-buttons>
-        <ion-title>
+<ion-menu contentId="main-content">
+  <ion-content class="ion-padding">
+    <h1>Mnemonics</h1>
+    <ion-accordion-group>
+      <app-data-set-selector (seriesRequest)="sendSeriesRequest($event)"></app-data-set-selector>
+    </ion-accordion-group>
+  </ion-content>
+</ion-menu>
+<ion-content class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-toggle>
+          <ion-button>
+            <ion-icon slot="icon-only" name="menu"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
+      <ion-title>
+        <h1>
           <ion-icon name="bar-chart-outline"></ion-icon>
           OFR Short-term Funding Monitor
           <ion-chip color="primary">
@@ -25,11 +25,9 @@
                rel="nofollow noreferrer noopener">API Reference</a>
             <ion-icon name="exit-outline"></ion-icon>
           </ion-chip>
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-      <app-series-display [series]="series"></app-series-display>
-    </ion-content>
-  </ion-content>
-</ion-split-pane>
+        </h1>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <app-series-display [series]="series"></app-series-display>
+</ion-content>

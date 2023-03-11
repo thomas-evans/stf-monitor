@@ -1,4 +1,4 @@
-<ng-container *ngIf="fullSeries$ | async as data">
+<ng-container *ngIf="fullSeries$ |  async as data">
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -8,10 +8,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <app-chart-builder [aggregation]="data.timeseries.aggregation"></app-chart-builder>
-      </ion-col>
-      <ion-col>
-        <app-metadata [metadata]="data.metadata"></app-metadata>
+        <app-chart-builder [fullSeries]="data"></app-chart-builder>
       </ion-col>
     </ion-row>
   </ion-grid>
