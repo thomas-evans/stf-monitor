@@ -1,16 +1,19 @@
 {
   "name": "stf-monitor",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
+  "version": "1.0.0",
+  "author": "Thomas Evans",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
     "start": "ionic serve",
+    "start-prod": "ionic serve --prod",
     "build": "ng build",
+    "build-prod": "ionic build --prod -- --aot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
   },
+  "repository": "https://github.com/thomas-evans/stf-monitor",
   "private": true,
   "dependencies": {
     "@angular/common": "^15.0.0",

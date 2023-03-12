@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MenuController} from "@ionic/angular";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,13 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 })
 export class AppComponent {
   series: string = '';
-  constructor() {}
-
+  constructor(private menuController: MenuController) {}
+  openMenu() {
+    this.menuController.open().catch(() => {throw new Error('Something is not right here')});
+  }
+  seriesLoaded = false;
   sendSeriesRequest(series: string) {
     this.series = series;
+    this.seriesLoaded = true;
   }
 }
