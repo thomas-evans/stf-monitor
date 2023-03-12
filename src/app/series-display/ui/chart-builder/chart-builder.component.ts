@@ -34,12 +34,12 @@ export class ChartBuilderComponent implements OnInit, OnDestroy {
       {
         data: [],
         label: '',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
+        backgroundColor: 'rgba(0,24,113,0.2)',
+        borderColor: 'rgba(0,24,113,1)',
+        pointBackgroundColor: 'rgba(0,24,113,1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        pointHoverBorderColor: 'rgba(0,24,113,0.8)',
         fill: 'origin',
       }
     ],
@@ -56,7 +56,8 @@ export class ChartBuilderComponent implements OnInit, OnDestroy {
         {
           position: 'left',
         }
-    }
+    },
+    maintainAspectRatio: false,
   };
   public lineChartType: ChartType = 'line';
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;

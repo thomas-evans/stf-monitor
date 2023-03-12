@@ -13,7 +13,11 @@ import {NgChartsModule} from 'ng2-charts';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), DataSetSelectorModule, HttpClientModule, SeriesDisplayModule, NgChartsModule],
-  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: IonicRouteStrategy
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
