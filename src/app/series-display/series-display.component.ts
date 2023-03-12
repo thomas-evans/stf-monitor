@@ -4,7 +4,6 @@ import {Subject} from "rxjs";
 import {FullSeriesService} from "./data-access/full-series.service";
 import {ChartBuilderComponent} from "./ui/chart-builder/chart-builder.component";
 import {IonicModule} from "@ionic/angular";
-import {NgChartsModule} from "ng2-charts";
 
 @Component({
   selector: 'app-series-display',
@@ -34,7 +33,6 @@ export class SeriesDisplayComponent {
   imports: [
     CommonModule,
     IonicModule,
-    NgChartsModule,
   ]
 })
 export class SeriesDisplayModule {

@@ -1,9 +1,9 @@
-<ion-card>
-  <canvas baseChart class="chart" [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType" style="max-height: 40vh;"></canvas>
+<ion-card *ngIf="fullSeries$ | async as data">
+  <canvas id="plotData" class="chart" style="max-height: 40vh;"></canvas>
   <ion-card-header>
-    <ion-card-title *ngIf="fullSeries$ | async as data">{{data.metadata?.description?.name}}</ion-card-title>
-    <ion-card-subtitle *ngIf="fullSeries$ | async as data">{{data.metadata?.mnemonic}}</ion-card-subtitle>
+    <ion-card-title>{{data.metadata?.description?.name}}</ion-card-title>
+    <ion-card-subtitle>{{data.metadata?.mnemonic}}</ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content *ngIf="fullSeries$ | async as data">{{data.metadata?.description?.description}}</ion-card-content>
-  <ion-card-content *ngIf="fullSeries$ | async as data">{{data.metadata?.description?.notes}}</ion-card-content>
+  <ion-card-content [innerHTML]="data.metadata?.description?.description"></ion-card-content>
+  <ion-card-content [innerHTML]="data.metadata?.description?.notes"></ion-card-content>
 </ion-card>
