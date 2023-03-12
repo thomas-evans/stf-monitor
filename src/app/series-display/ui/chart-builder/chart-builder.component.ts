@@ -52,6 +52,9 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
       maintainAspectRatio: false,
       plugins: {
         zoom: {
+          pan:{
+            enabled: true
+          },
           zoom: {
             wheel: {
               enabled: true
