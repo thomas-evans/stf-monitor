@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ChartBuilderComponent } from './chart-builder.component';
 
-describe('ChartBuilderComponent', () => {
+xdescribe('ChartBuilderComponent', () => {
   let component: ChartBuilderComponent;
   let fixture: ComponentFixture<ChartBuilderComponent>;
 

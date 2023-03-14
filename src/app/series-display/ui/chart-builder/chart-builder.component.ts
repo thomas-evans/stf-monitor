@@ -25,7 +25,6 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
       datasets: [
         {
           data: [],
-          label: '',
           backgroundColor: 'rgba(0,24,113,0.2)',
           borderColor: 'rgba(0,24,113,1)',
           pointBackgroundColor: 'rgba(0,24,113,1)',
@@ -62,8 +61,11 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
             pinch: {
               enabled: true
             },
-            mode: 'xy'
+            mode: 'xy',
           }
+        },
+        legend: {
+          display: false
         }
       }
     }
@@ -77,6 +79,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
   @Input() set fullSeries(data: seriesData) {
     this.fullSeries$.next(data);
     this.myChart?.update();
+    this.myChart?.resetZoom();
   }
 
   constructor() {
@@ -92,7 +95,14 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
     this.fullSeries$.subscribe(value => {
       this.chartConfig.data.datasets[0].data = value.timeseries.aggregation.map(value => value[1]);
       this.chartConfig.data.labels = value.timeseries.aggregation.map(value => value[0]);
-      this.chartConfig.data.datasets[0].label = value.metadata?.unit.name;
+      // this.chartConfig.data.datasets[0].label = value.metadata?.unit.name;
+      let aggregationNumbers: Array<number> = value.timeseries.aggregation.flat().filter((i): i is number => {
+          return typeof i === "number";
+        });
+      if(this.chartConfig.options?.plugins?.zoom){
+        this.chartConfig.options.plugins.zoom.limits = {y: {min: Math.min(...aggregationNumbers), max: Math.max(...aggregationNumbers) + (1/100) * Math.max(...aggregationNumbers)}};
+      }
+      console.log(this.myChart);
     });
   }
 }
