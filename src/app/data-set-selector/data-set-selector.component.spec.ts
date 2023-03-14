@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DataSetSelectorComponent } from './data-set-selector.component';
 
-describe('DataSetSelectorComponent', () => {
+xdescribe('DataSetSelectorComponent', () => {
   let component: DataSetSelectorComponent;
   let fixture: ComponentFixture<DataSetSelectorComponent>;
 

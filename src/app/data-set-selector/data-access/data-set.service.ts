@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {catchError, EMPTY, map, Observable, ReplaySubject, Subject} from "rxjs";
+import {map, Observable, ReplaySubject, Subject} from "rxjs";
 import {MnemonicDataset} from "./interfaces/mnemonic-dataset";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataSetService {
-  public getDataSets(mnemonic: Subject<string>){
+  public getDataSets(mnemonic: Subject<string>) {
     let subject: ReplaySubject<[MnemonicDataset]> = new ReplaySubject();
     mnemonic.subscribe(value => {
       this.fetchFromOFR(value).subscribe(v => {
@@ -17,11 +17,12 @@ export class DataSetService {
     return subject;
   }
 
-  private fetchFromOFR(mnemonic: string): Observable<[MnemonicDataset]>{
+  private fetchFromOFR(mnemonic: string): Observable<[MnemonicDataset]> {
     return this.http.get(`https://data.financialresearch.gov/v1/metadata/mnemonics?dataset=${mnemonic}`).pipe(
-      catchError(() => EMPTY),
       map((value: any, _index: number) => value.map((value: any) => value))
     )
   }
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+  }
 }

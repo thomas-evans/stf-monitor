@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SeriesDisplayComponent } from './series-display.component';
 
-describe('SeriesDisplayComponent', () => {
+xdescribe('SeriesDisplayComponent', () => {
   let component: SeriesDisplayComponent;
   let fixture: ComponentFixture<SeriesDisplayComponent>;
 

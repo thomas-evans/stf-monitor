@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {catchError, EMPTY, map, Observable, ReplaySubject, Subject} from "rxjs";
+import {map, Observable, ReplaySubject, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {FullSeries, seriesData} from "./interfaces/full-series";
 
@@ -20,7 +20,6 @@ export class FullSeriesService {
 
   private getFromOFR(series: string): Observable<seriesData> {
     return this.http.get<FullSeries>(`https://data.financialresearch.gov/v1/series/full?mnemonic=${series}`).pipe(
-      catchError(() => EMPTY),
       map((value) => Object.values(value)[0])
     )
   }
