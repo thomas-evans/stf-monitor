@@ -41,16 +41,6 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
       labels: []
     },
     options: {
-      scales: {
-        x: {
-          ticks: {
-            callback: function (val, index) {
-              let labelVal = this.getLabelForValue(val as number).split('-');
-              return index % 2 === 0 ? `${labelVal[1]}/${labelVal[0].slice(-2)}` : '';
-            }
-          }
-        }
-      },
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
@@ -112,6 +102,14 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       if (this.chartConfig.options) {
         this.chartConfig.options.scales = {
+          x: {
+            ticks: {
+              callback: function (val, index) {
+                let labelVal = this.getLabelForValue(val as number).split('-');
+                return index % 2 === 0 ? `${labelVal[1]}/${labelVal[0].slice(-2)}` : '';
+              }
+            }
+          },
           y: {
             ticks: {
               callback: (val) => {
