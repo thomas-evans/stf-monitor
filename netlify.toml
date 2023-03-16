@@ -1,2 +1,2 @@
 [build]
-command = "export CHROME_BIN=${PWD}/node_modules/puppeteer/.local-chromium/$(ls -x -1 ${PWD}/node_modules/puppeteer/.local-chromium)/chrome-linux/chrome && printenv && npm run build-prod"
+command = "export CHROME_BIN=${PWD}/node_modules/puppeteer/.local-chromium$(ls -x -1 ${PWD}/node_modules/puppeteer/.local-chromium)/chrome-linux/chrome && printenv && npm run build-prod"
