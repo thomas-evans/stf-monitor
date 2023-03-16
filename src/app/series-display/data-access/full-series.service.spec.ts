@@ -4,9 +4,9 @@ import {FullSeriesService} from './full-series.service';
 import {HttpClient} from "@angular/common/http";
 import {ReplaySubject, Subject} from "rxjs";
 import {MnemonicDataset} from "../../data-set-selector/data-access/interfaces/mnemonic-dataset";
-import {asyncData} from "../../test-helpers/async-observable-helpers";
+import {asyncData} from "../../../test-helpers/async-observable-helpers";
 import {FullSeries, seriesData} from "./interfaces/full-series";
-import {RecursivePartial} from "../../test-helpers/recursive-partial";
+import {RecursivePartial} from "../../../test-helpers/recursive-partial";
 
 describe('FullSeriesService', () => {
   let service: FullSeriesService;
@@ -49,7 +49,6 @@ describe('FullSeriesService', () => {
       httpClientSpy.get.and.returnValue(asyncData(dataset));
       service.getFullSeries(mockSubjectString).subscribe({
         next: data => {
-          console.log(data);
           expect(data as RecursivePartial<seriesData>).withContext('test').toEqual({
             "timeseries": {aggregation: [['something']]},
             "metadata": {
@@ -58,8 +57,7 @@ describe('FullSeriesService', () => {
           });
           done();
         },
-        error: err => {
-          console.log(err);
+        error: () => {
           done.fail('this should not succeed');
         }
       });

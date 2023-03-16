@@ -17,11 +17,11 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-menu contentId="main-content">
+  <ion-menu (ionWillOpen)="loadMenu = true" contentId="main-content">
     <ion-content class="ion-padding">
       <h1>Mnemonics</h1>
       <ion-accordion-group>
-        <app-data-set-selector (seriesRequest)="sendSeriesRequest($event)"></app-data-set-selector>
+        <app-data-set-selector (seriesRequest)="sendSeriesRequest($event)" *ngIf="loadMenu"></app-data-set-selector>
       </ion-accordion-group>
     </ion-content>
   </ion-menu>
@@ -29,6 +29,23 @@
     <ion-grid *ngIf="!seriesLoaded">
       <ion-row>
         <ion-col class="ion-text-center">
+          <figure class="quote">
+            <blockquote>
+              Short-term funding markets are the core of liquidity and maturity transformation in financial markets.
+              They provide financing for financial institutions, serve as alternatives to deposits for cash investors,
+              and can be used to obtain securities. However, as unavoidable consequences of their functions, these
+              critical markets are vulnerable to disruptions. Problems faced by financial institutions or other parts of
+              the financial system often appear as stresses in short-term funding markets. As part of the Office of
+              Financial Research’s mission to promote and monitor financial stability, the OFR collects a variety of
+              data on these markets. The Short-term Funding Monitor presents these data and places them in context with
+              other data sources.
+            </blockquote>
+            <figcaption>
+              &mdash; Office of Financial Research, <cite><a
+              href="https://www.financialresearch.gov/short-term-funding-monitor/api/" target="_blank"
+              rel="nofollow noreferrer noopener">https://www.financialresearch.gov/short-term-funding-monitor/api/</a></cite>
+            </figcaption>
+          </figure>
           <ion-button class="ion-margin-top" (click)="openMenu()">Select a Mnemonic</ion-button>
         </ion-col>
       </ion-row>
@@ -38,19 +55,14 @@
   <ion-footer>
     <ion-toolbar class="ion-text-center">
       <ion-card-subtitle>
-        <a href="https://www.financialresearch.gov/short-term-funding-monitor/api/" target="_blank"
-           rel="nofollow noreferrer noopener">Data Provided by The Office of Financial Research</a>
+        Office of Financial Research, “OFR Short-term Funding Monitor,” refreshed daily, <a
+          href="https://www.financialresearch.gov/short-term-funding-monitor/" target="_blank"
+          rel="nofollow noreferrer noopener">https://www.financialresearch.gov/short-term-funding-monitor/</a>
+          (accessed {{today | date}}).
       </ion-card-subtitle>
     </ion-toolbar>
   </ion-footer>
 </ion-app>
-<!--todo write unit tests-->
+<!--todo write component unit tests-->
 <!--todo install cyprus and write tests-->
-<!--todo only call mnemonics when menu selected first time-->
-<!--todo only call data set when accordion expanded-->
-<!--todo add TypeScript type guards-->
-<!--todo add skeletons to menu-->
-<!--todo remove heading on chart and change x axis to have symbol-->
-<!--todo have chart rerender on data change-->
-<!--todo make x and y axis dynamic based on chart-->
-<!--todo add aria attributes from axe results-->
+<!--todo create error handler-->

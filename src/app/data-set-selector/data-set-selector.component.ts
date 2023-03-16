@@ -15,9 +15,14 @@ export class DataSetSelectorComponent {
   }
   mnemonics$ = this.mnemonicsService.getMnemonics();
   @Output() seriesRequest = new EventEmitter<string>();
-
+  loadDataSet: boolean = false;
   sendSeriesRequest(event: string) {
     this.seriesRequest.emit(event);
+  }
+  selectedAccordion: string | undefined;
+  getAccordionData(event: any) {
+    console.log(event);
+    this.selectedAccordion = event.detail.value;
   }
 }
 

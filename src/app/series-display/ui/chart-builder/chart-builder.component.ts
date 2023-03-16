@@ -1,15 +1,14 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit
+  AfterViewInit, ChangeDetectionStrategy,
+  Component, ElementRef,
+  Input, OnDestroy,
+  OnInit, ViewChild
 } from '@angular/core';
-import {Chart, ChartConfiguration, registerables } from "chart.js";
+import {Chart, ChartConfiguration, registerables} from "chart.js";
 import {seriesData} from "../../data-access/interfaces/full-series";
 import {ReplaySubject} from "rxjs";
 import zoomPlugin from 'chartjs-plugin-zoom';
+import {ChartBuilderService} from "./utils/chart-builder.service";
 
 @Component({
   selector: 'app-chart-builder',
@@ -17,8 +16,13 @@ import zoomPlugin from 'chartjs-plugin-zoom';
   styleUrls: ['./chart-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
+export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('canvas')
+  canvas: ElementRef | undefined;
+  chart: Chart | undefined;
+
   public fullSeries$: ReplaySubject<seriesData> = new ReplaySubject();
+
   chartConfig: ChartConfiguration = {
     type: "line",
     data: {
@@ -40,7 +44,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
       scales: {
         x: {
           ticks: {
-            callback: function(val, index){
+            callback: function (val, index) {
               let labelVal = this.getLabelForValue(val as number).split('-');
               return index % 2 === 0 ? `${labelVal[1]}/${labelVal[0].slice(-2)}` : '';
             }
@@ -51,7 +55,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
       maintainAspectRatio: false,
       plugins: {
         zoom: {
-          pan:{
+          pan: {
             enabled: true
           },
           zoom: {
@@ -70,19 +74,19 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
       }
     }
   }
-  myChart: Chart | undefined;
+
   ngAfterViewInit() {
-    this.myChart = new Chart('plotData', this.chartConfig)
-    this.myChart.render();
+    this.chart = this.buildChart.chartBuilder(this.canvas?.nativeElement, this.chartConfig);
+    this.chart.render();
   }
 
   @Input() set fullSeries(data: seriesData) {
     this.fullSeries$.next(data);
-    this.myChart?.update();
-    this.myChart?.resetZoom();
+    this.chart?.update();
+    this.chart?.resetZoom();
   }
 
-  constructor() {
+  constructor(private buildChart: ChartBuilderService) {
     Chart.register(...registerables, zoomPlugin);
   }
 
@@ -95,14 +99,43 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit{
     this.fullSeries$.subscribe(value => {
       this.chartConfig.data.datasets[0].data = value.timeseries.aggregation.map(value => value[1]);
       this.chartConfig.data.labels = value.timeseries.aggregation.map(value => value[0]);
-      // this.chartConfig.data.datasets[0].label = value.metadata?.unit.name;
       let aggregationNumbers: Array<number> = value.timeseries.aggregation.flat().filter((i): i is number => {
-          return typeof i === "number";
-        });
-      if(this.chartConfig.options?.plugins?.zoom){
-        this.chartConfig.options.plugins.zoom.limits = {y: {min: Math.min(...aggregationNumbers), max: Math.max(...aggregationNumbers) + (1/100) * Math.max(...aggregationNumbers)}};
+        return typeof i === "number";
+      });
+      if (this.chartConfig.options?.plugins?.zoom) {
+        this.chartConfig.options.plugins.zoom.limits = {
+          y: {
+            min: Math.min(...aggregationNumbers),
+            max: Math.max(...aggregationNumbers) + (1 / 100) * Math.max(...aggregationNumbers)
+          }
+        };
       }
-      console.log(this.myChart);
+      if (this.chartConfig.options) {
+        this.chartConfig.options.scales = {
+          y: {
+            ticks: {
+              callback: (val) => {
+                let unit_name = value.metadata?.unit.name;
+                if (unit_name === 'USD') {
+                  return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    notation: "compact"
+                  }).format(val as number);
+                } else if (unit_name === 'Percent') {
+                  return new Intl.NumberFormat('en-US', {
+                    style: 'percent',
+                    minimumSignificantDigits: 1,
+                    maximumSignificantDigits: 3
+                  }).format(val as number / 100);
+                } else {
+                  return val;
+                }
+              }
+            }
+          }
+        }
+      }
     });
   }
 }

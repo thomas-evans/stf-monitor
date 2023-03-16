@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {MnemonicsService} from './mnemonics.service';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {asyncData} from "../../test-helpers/async-observable-helpers";
+import {asyncData} from "../../../test-helpers/async-observable-helpers";
 
 describe('MnemonicsService', () => {
   let service: MnemonicsService;

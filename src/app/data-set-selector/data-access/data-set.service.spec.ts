@@ -4,18 +4,18 @@ import {DataSetService} from './data-set.service';
 import {HttpClient} from "@angular/common/http";
 import {ReplaySubject, Subject} from "rxjs";
 import {MnemonicDataset} from "./interfaces/mnemonic-dataset";
-import {asyncData} from "../../test-helpers/async-observable-helpers";
+import {asyncData} from "../../../test-helpers/async-observable-helpers";
 
 describe('DataSetService', () => {
   let service: DataSetService;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('HttpClient', ['get']);
+    const httpSpy = jasmine.createSpyObj('HttpClient', ['get']);
 
     TestBed.configureTestingModule({
       providers: [
         DataSetService,
-        {provide: HttpClient, useValue: spy}
+        {provide: HttpClient, useValue: httpSpy}
       ]
     });
     service = TestBed.inject(DataSetService);
@@ -42,8 +42,7 @@ describe('DataSetService', () => {
           expect(data).withContext('test').toEqual([{mnemonic: 'sets', series_name: 'super!'}]);
           done();
         },
-        error: err => {
-          console.log(err);
+        error: () => {
           done.fail('this should not succeed');
         }
       });
