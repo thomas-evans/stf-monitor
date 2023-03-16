@@ -28,7 +28,7 @@
   <ion-content id="main-content">
     <ion-grid *ngIf="!seriesLoaded">
       <ion-row>
-        <ion-col class="ion-text-center">
+        <ion-col>
           <figure class="quote">
             <blockquote>
               Short-term funding markets are the core of liquidity and maturity transformation in financial markets.
@@ -46,21 +46,16 @@
               rel="nofollow noreferrer noopener">https://www.financialresearch.gov/short-term-funding-monitor/api/</a></cite>
             </figcaption>
           </figure>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
           <ion-button class="ion-margin-top" (click)="openMenu()">Select a Mnemonic</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <app-series-display [series]="series" *ngIf="seriesLoaded"></app-series-display>
   </ion-content>
-  <ion-footer>
-    <ion-toolbar class="ion-text-center">
-        <small>Office of Financial Research, “OFR Short-term Funding Monitor,” refreshed daily, <a
-          href="https://www.financialresearch.gov/short-term-funding-monitor/" target="_blank"
-          rel="nofollow noreferrer noopener">https://www.financialresearch.gov/short-term-funding-monitor/</a>
-          (accessed {{today | date}}).
-         </small>
-    </ion-toolbar>
-  </ion-footer>
 </ion-app>
 <!--todo write component unit tests-->
 <!--todo install cyprus and write tests-->

@@ -9,7 +9,6 @@ import {MenuController} from "@ionic/angular";
 })
 export class AppComponent {
   series: string = '';
-  today: Date = new Date();
   constructor(private menuController: MenuController) {}
   openMenu() {
     this.menuController.open().catch(() => {throw new Error('Something is not right here')});

@@ -6,4 +6,9 @@
   </ion-card-header>
   <ion-card-content [innerHTML]="data.metadata?.description?.description"></ion-card-content>
   <ion-card-content [innerHTML]="data.metadata?.description?.notes"></ion-card-content>
+  <ion-card-content><small>Office of Financial Research, “OFR Short-term Funding Monitor,” refreshed daily, <a
+    href="https://www.financialresearch.gov/short-term-funding-monitor/" target="_blank"
+    rel="nofollow noreferrer noopener">https://www.financialresearch.gov/short-term-funding-monitor/</a>
+    (accessed {{today | date}}).
+  </small></ion-card-content>
 </ion-card>

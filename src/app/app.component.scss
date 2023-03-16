@@ -121,10 +121,12 @@ ion-item.selected {
 .quote {
   margin: 0;
   background: #efefef;
-  padding: 1em;
+  padding: .5em;
   border-radius: 1em;
+  font-size: smaller;
 }
 .quote figcaption,
 .quote blockquote {
   margin: 1em;
 }
+

@@ -20,7 +20,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('canvas')
   canvas: ElementRef | undefined;
   chart: Chart | undefined;
-
+  today: Date = new Date();
   public fullSeries$: ReplaySubject<seriesData> = new ReplaySubject();
 
   chartConfig: ChartConfiguration = {
