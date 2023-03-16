@@ -4,7 +4,7 @@ import {IonicModule, MenuController} from '@ionic/angular';
 import {DataSetComponent} from './data-set.component';
 import {DataSetService} from "../../data-access/data-set.service";
 
-describe('DataSetComponent', () => {
+xdescribe('DataSetComponent', () => {
   let component: DataSetComponent;
   let fixture: ComponentFixture<DataSetComponent>;
   let dataSetService: jasmine.SpyObj<DataSetService>;

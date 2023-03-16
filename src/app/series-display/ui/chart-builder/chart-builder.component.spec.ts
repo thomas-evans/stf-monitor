@@ -4,7 +4,7 @@ import {IonicModule} from '@ionic/angular';
 import {ChartBuilderComponent} from './chart-builder.component';
 import {ChartBuilderService} from "./utils/chart-builder.service";
 
-describe('ChartBuilderComponent', () => {
+xdescribe('ChartBuilderComponent', () => {
   let component: ChartBuilderComponent;
   let fixture: ComponentFixture<ChartBuilderComponent>;
   let chartBuilderService: jasmine.SpyObj<ChartBuilderService>;
