@@ -1,5 +1,5 @@
 <ion-card *ngIf="fullSeries$ | async as data">
-  <canvas id="plotData" class="chart" style="max-height: 40vh;"></canvas>
+  <canvas #canvas class="chart" style="max-height: 40vh;"></canvas>
   <ion-card-header>
     <ion-card-title>{{data.metadata?.description?.name}}</ion-card-title>
     <ion-card-subtitle>{{data.metadata?.mnemonic}}</ion-card-subtitle>
