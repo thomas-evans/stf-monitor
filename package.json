@@ -8,6 +8,7 @@
     "start": "ionic serve",
     "start-prod": "ionic serve --prod",
     "build": "ng build",
+    "prebuild-prod": "ng test --watch=false --code-coverage",
     "build-prod": "ionic build --prod -- --aot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
