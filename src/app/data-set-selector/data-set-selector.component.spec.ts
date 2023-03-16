@@ -4,7 +4,7 @@ import {IonicModule} from '@ionic/angular';
 import {DataSetSelectorComponent} from './data-set-selector.component';
 import {MnemonicsService} from "./data-access/mnemonics.service";
 
-xdescribe('DataSetSelectorComponent', () => {
+describe('DataSetSelectorComponent', () => {
   let component: DataSetSelectorComponent;
   let fixture: ComponentFixture<DataSetSelectorComponent>;
   let mnemonicsService: jasmine.SpyObj<MnemonicsService>;

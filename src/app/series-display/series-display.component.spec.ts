@@ -4,7 +4,7 @@ import {IonicModule} from '@ionic/angular';
 import {SeriesDisplayComponent} from './series-display.component';
 import {FullSeriesService} from "./data-access/full-series.service";
 
-xdescribe('SeriesDisplayComponent', () => {
+describe('SeriesDisplayComponent', () => {
   let component: SeriesDisplayComponent;
   let fixture: ComponentFixture<SeriesDisplayComponent>;
   let fullSeriesService: jasmine.SpyObj<FullSeriesService>;
