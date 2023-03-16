@@ -43,6 +43,16 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      scales: {
+        x: {
+          ticks: {
+            callback: function (val, index) {
+              let labelVal = this.getLabelForValue(val as number).split('-');
+              return index % 2 === 0 ? `${labelVal[1]}/${labelVal[0].slice(-2)}` : '';
+            }
+          }
+        },
+      },
       plugins: {
         zoom: {
           pan: {
@@ -102,14 +112,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       if (this.chartConfig.options) {
         this.chartConfig.options.scales = {
-          x: {
-            ticks: {
-              callback: function (val, index) {
-                let labelVal = this.getLabelForValue(val as number).split('-');
-                return index % 2 === 0 ? `${labelVal[1]}/${labelVal[0].slice(-2)}` : '';
-              }
-            }
-          },
+          ...this.chartConfig.options.scales,
           y: {
             ticks: {
               callback: (val) => {
@@ -128,6 +131,43 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
                   }).format(val as number / 100);
                 } else {
                   return val;
+                }
+              }
+            }
+          }
+        }
+      }
+      if (this.chartConfig.options?.plugins) {
+        this.chartConfig.options.plugins = {
+          ...this.chartConfig.options?.plugins,
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                let unit_name = value.metadata?.unit.name;
+                let label = context.dataset.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.parsed.y !== null) {
+                  if (unit_name === 'USD') {
+                    label += new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                      notation: "compact"
+                    }).format(context.parsed.y as number);
+                    return label;
+                  } else if (unit_name === 'Percent') {
+                    label += new Intl.NumberFormat('en-US', {
+                      style: 'percent',
+                      minimumSignificantDigits: 1,
+                      maximumSignificantDigits: 3
+                    }).format(context.parsed.y as number / 100);
+                    return label;
+                  } else {
+                    return label;
+                  }
+                } else {
+                  return label;
                 }
               }
             }
