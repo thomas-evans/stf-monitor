@@ -1,5 +1,6 @@
 [build]
-command = 'npm run build-prod'
+command = 'npm run netlify-build'
+publish = "dist/app/browser"
 
 [[plugins]]
 package = 'netlify-plugin-chromium'

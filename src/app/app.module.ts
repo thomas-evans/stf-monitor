@@ -9,7 +9,7 @@ import { SeriesDisplayModule } from './series-display/series-display.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     IonicModule.forRoot(),
     DataSetSelectorModule,
     HttpClientModule,

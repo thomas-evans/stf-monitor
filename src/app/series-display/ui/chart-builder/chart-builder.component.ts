@@ -11,7 +11,6 @@ import {
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { seriesData } from '../../data-access/interfaces/full-series';
 import { ReplaySubject } from 'rxjs';
-import zoomPlugin from 'chartjs-plugin-zoom';
 import { ChartBuilderService } from './utils/chart-builder.service';
 
 @Component({
@@ -96,7 +95,13 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   constructor(private buildChart: ChartBuilderService) {
-    Chart.register(...registerables, zoomPlugin);
+    if (typeof window !== 'undefined') {
+      import('chartjs-plugin-zoom').then((zoomPlugin) => {
+        Chart.register(...registerables, zoomPlugin.default);
+      });
+    } else {
+      Chart.register(...registerables);
+    }
   }
 
   ngOnDestroy(): void {
