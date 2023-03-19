@@ -10,8 +10,12 @@
       </ion-buttons>
       <ion-title style="display: inline-flex">
         <h1>
-          <ion-icon style="vertical-align: top; padding-right: 5px" name="bar-chart-outline" color="secondary"
-                    aria-label="charts!"></ion-icon>
+          <ion-icon
+            style="vertical-align: top; padding-right: 5px"
+            name="bar-chart-outline"
+            color="secondary"
+            aria-label="charts!"
+          ></ion-icon>
           STF Monitor
         </h1>
       </ion-title>
@@ -21,7 +25,10 @@
     <ion-content class="ion-padding">
       <h1>Mnemonics</h1>
       <ion-accordion-group>
-        <app-data-set-selector (seriesRequest)="sendSeriesRequest($event)" *ngIf="loadMenu"></app-data-set-selector>
+        <app-data-set-selector
+          (seriesRequest)="sendSeriesRequest($event)"
+          *ngIf="loadMenu"
+        ></app-data-set-selector>
       </ion-accordion-group>
     </ion-content>
   </ion-menu>
@@ -31,32 +38,48 @@
         <ion-col>
           <figure class="quote">
             <blockquote>
-              Short-term funding markets are the core of liquidity and maturity transformation in financial markets.
-              They provide financing for financial institutions, serve as alternatives to deposits for cash investors,
-              and can be used to obtain securities. However, as unavoidable consequences of their functions, these
-              critical markets are vulnerable to disruptions. Problems faced by financial institutions or other parts of
-              the financial system often appear as stresses in short-term funding markets. As part of the Office of
-              Financial Research’s mission to promote and monitor financial stability, the OFR collects a variety of
-              data on these markets. The Short-term Funding Monitor presents these data and places them in context with
-              other data sources.
+              Short-term funding markets are the core of liquidity and maturity
+              transformation in financial markets. They provide financing for
+              financial institutions, serve as alternatives to deposits for cash
+              investors, and can be used to obtain securities. However, as
+              unavoidable consequences of their functions, these critical
+              markets are vulnerable to disruptions. Problems faced by financial
+              institutions or other parts of the financial system often appear
+              as stresses in short-term funding markets. As part of the Office
+              of Financial Research’s mission to promote and monitor financial
+              stability, the OFR collects a variety of data on these markets.
+              The Short-term Funding Monitor presents these data and places them
+              in context with other data sources.
             </blockquote>
             <figcaption>
-              &mdash; Office of Financial Research, <cite><a
-              href="https://www.financialresearch.gov/short-term-funding-monitor/api/" target="_blank"
-              rel="nofollow noreferrer noopener">https://www.financialresearch.gov/short-term-funding-monitor/api/</a></cite>
+              &mdash; Office of Financial Research,
+              <cite
+                ><a
+                  href="https://www.financialresearch.gov/short-term-funding-monitor/api/"
+                  target="_blank"
+                  rel="nofollow noreferrer noopener"
+                  >https://www.financialresearch.gov/short-term-funding-monitor/api/</a
+                ></cite
+              >
             </figcaption>
           </figure>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <ion-button class="ion-margin-top" (click)="openMenu()">Select a Mnemonic</ion-button>
+          <ion-button class="ion-margin-top" (click)="openMenu()"
+            >Select a Mnemonic</ion-button
+          >
         </ion-col>
       </ion-row>
     </ion-grid>
-    <app-series-display [series]="series" *ngIf="seriesLoaded"></app-series-display>
+    <app-series-display
+      [series]="series"
+      *ngIf="seriesLoaded"
+    ></app-series-display>
   </ion-content>
 </ion-app>
 <!--todo write component unit tests-->
 <!--todo install cyprus and write tests-->
 <!--todo create error handler-->
+<!--todo add angular universal-->

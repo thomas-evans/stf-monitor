@@ -2,14 +2,14 @@ export interface FullSeries {
   series: seriesData;
 }
 
-export interface seriesData{
+export interface seriesData {
   timeseries: timeseries;
   metadata?: metadata;
 }
 
-interface timeseries{
-  aggregation: [[string, number | null]]
-  disclosure_edits: [[string, string | null]]
+interface timeseries {
+  aggregation: [[string, number | null]];
+  disclosure_edits: [[string, string | null]];
 }
 export interface metadata {
   mnemonic: string;
@@ -27,7 +27,7 @@ export interface description {
   vintage: string;
   notes: string;
   description: string;
-  subsetting: string,
+  subsetting: string;
   subtype: string;
   name: string;
 }
@@ -38,7 +38,7 @@ export interface rights {
 
 export interface schedule {
   observation_period: string;
-  seasonal_adjustment: string
+  seasonal_adjustment: string;
   observation_frequency: string;
   start_date: string;
   last_update: string;

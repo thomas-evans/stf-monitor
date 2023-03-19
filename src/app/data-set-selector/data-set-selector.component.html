@@ -1,20 +1,32 @@
-<ion-accordion-group (ionChange)="getAccordionData($event)" *ngIf="mnemonics$ | async; else menuLoading">
-  <ion-accordion *ngFor="let mnemonic of mnemonics$ | async" [attr.value]="mnemonic">
+<ion-accordion-group
+  (ionChange)="getAccordionData($event)"
+  *ngIf="mnemonics$ | async; else menuLoading"
+>
+  <ion-accordion
+    *ngFor="let mnemonic of mnemonics$ | async"
+    [attr.value]="mnemonic"
+  >
     <ion-item slot="header">
-      <ion-label>{{mnemonic}}</ion-label>
+      <ion-label>{{ mnemonic }}</ion-label>
     </ion-item>
     <app-data-set
       [mnemonic]="mnemonic | lowercase"
-      (seriesRequest)="sendSeriesRequest($event)" class="ion-padding"
-      slot="content" *ngIf="mnemonic === selectedAccordion">
+      (seriesRequest)="sendSeriesRequest($event)"
+      class="ion-padding"
+      slot="content"
+      *ngIf="mnemonic === selectedAccordion"
+    >
     </app-data-set>
   </ion-accordion>
 </ion-accordion-group>
 <ng-template #menuLoading>
-  <ion-accordion *ngFor="let _nums of [1,2,3,4,5]">
+  <ion-accordion *ngFor="let _nums of [1, 2, 3, 4, 5]">
     <ion-item slot="header">
       <ion-label>
-        <ion-skeleton-text [animated]="true" style="width: 100%; line-height: 22px;"></ion-skeleton-text>
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 100%; line-height: 22px"
+        ></ion-skeleton-text>
       </ion-label>
     </ion-item>
   </ion-accordion>

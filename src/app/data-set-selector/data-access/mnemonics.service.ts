@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MnemonicsService {
   public getMnemonics() {
@@ -11,12 +11,15 @@ export class MnemonicsService {
   }
 
   private fetchFromOFR() {
-    return this.http.get('https://data.financialresearch.gov/v1/metadata/mnemonics').pipe(
-      map((value: any, _index: number) => value.map((value: string, _index: number) => value.substring(0, value.indexOf('-')))),
-      map((value: string, _index: number) => [...new Set(value)])
-    );
+    return this.http
+      .get('https://data.financialresearch.gov/v1/metadata/mnemonics')
+      .pipe(
+        map((value: any) =>
+          value.map((value: string) => value.substring(0, value.indexOf('-')))
+        ),
+        map((value: string) => [...new Set(value)])
+      );
   }
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 }

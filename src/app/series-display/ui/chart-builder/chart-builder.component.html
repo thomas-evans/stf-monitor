@@ -1,14 +1,26 @@
 <ion-card *ngIf="fullSeries$ | async as data">
-  <canvas #canvas class="chart" style="max-height: 40vh;"></canvas>
+  <canvas #canvas class="chart" style="max-height: 40vh"></canvas>
   <ion-card-header>
-    <ion-card-title>{{data.metadata?.description?.name}}</ion-card-title>
-    <ion-card-subtitle>{{data.metadata?.mnemonic}}</ion-card-subtitle>
+    <ion-card-title>{{ data.metadata?.description?.name }}</ion-card-title>
+    <ion-card-subtitle>{{ data.metadata?.mnemonic }}</ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content [innerHTML]="data.metadata?.description?.description"></ion-card-content>
-  <ion-card-content [innerHTML]="data.metadata?.description?.notes"></ion-card-content>
-  <ion-card-content><small>Office of Financial Research, “OFR Short-term Funding Monitor,” refreshed daily, <a
-    href="https://www.financialresearch.gov/short-term-funding-monitor/" target="_blank"
-    rel="nofollow noreferrer noopener">https://www.financialresearch.gov/short-term-funding-monitor/</a>
-    (accessed {{today | date}}).
-  </small></ion-card-content>
+  <ion-card-content
+    [innerHTML]="data.metadata?.description?.description"
+  ></ion-card-content>
+  <ion-card-content
+    [innerHTML]="data.metadata?.description?.notes"
+  ></ion-card-content>
+  <ion-card-content
+    ><small
+      >Office of Financial Research, “OFR Short-term Funding Monitor,” refreshed
+      daily,
+      <a
+        href="https://www.financialresearch.gov/short-term-funding-monitor/"
+        target="_blank"
+        rel="nofollow noreferrer noopener"
+        >https://www.financialresearch.gov/short-term-funding-monitor/</a
+      >
+      (accessed {{ today | date }}).
+    </small></ion-card-content
+  >
 </ion-card>

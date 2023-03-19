@@ -1,16 +1,27 @@
 <ng-container *ngIf="dataSet$ | async; else menuLoading">
-  <ion-item (click)="emitSeriesRequest(data.mnemonic)" button="" detail="true" *ngFor="let data of dataSet$ | async">
+  <ion-item
+    (click)="emitSeriesRequest(data.mnemonic)"
+    button=""
+    detail="true"
+    *ngFor="let data of dataSet$ | async"
+  >
     <ion-label>
-      <h3>{{data.mnemonic}}</h3>
-      <p>{{data.series_name}}</p>
+      <h3>{{ data.mnemonic }}</h3>
+      <p>{{ data.series_name }}</p>
     </ion-label>
   </ion-item>
 </ng-container>
 <ng-template #menuLoading>
-  <ion-item *ngFor="let _nums of [1,2,3,4,5]">
+  <ion-item *ngFor="let _nums of [1, 2, 3, 4, 5]">
     <ion-label>
-      <ion-skeleton-text [animated]="true" style="width: 100%; line-height: 22px;"></ion-skeleton-text>
-      <ion-skeleton-text [animated]="true" style="width: 100%; line-height: 18px;"></ion-skeleton-text>
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 100%; line-height: 22px"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 100%; line-height: 18px"
+      ></ion-skeleton-text>
     </ion-label>
   </ion-item>
 </ng-template>
