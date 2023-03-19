@@ -81,29 +81,37 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   ngAfterViewInit() {
-    this.chart = this.buildChart.chartBuilder(
-      this.canvas?.nativeElement,
-      this.chartConfig
-    );
-    this.chart.render();
+    if (typeof window !== 'undefined') {
+      import('chartjs-plugin-zoom').then((zoomPlugin) => {
+        Chart.register(...registerables, zoomPlugin.default);
+        this.chart = this.buildChart.chartBuilder(
+          this.canvas?.nativeElement,
+          this.chartConfig
+        );
+        this.chart.render();
+      });
+    } else {
+      Chart.register(...registerables);
+      this.chart = this.buildChart.chartBuilder(
+        this.canvas?.nativeElement,
+        this.chartConfig
+      );
+      this.chart.render();
+    }
+    // this.chart = this.buildChart.chartBuilder(
+    //   this.canvas?.nativeElement,
+    //   this.chartConfig
+    // );
+    // this.chart.render();
   }
 
   @Input() set fullSeries(data: seriesData) {
     this.fullSeries$.next(data);
     this.chart?.update();
     this.chart?.resetZoom();
-    this.chart?.resize();
   }
 
-  constructor(private buildChart: ChartBuilderService) {
-    if (typeof window !== 'undefined') {
-      import('chartjs-plugin-zoom').then((zoomPlugin) => {
-        Chart.register(...registerables, zoomPlugin.default);
-      });
-    } else {
-      Chart.register(...registerables);
-    }
-  }
+  constructor(private buildChart: ChartBuilderService) {}
 
   ngOnDestroy(): void {
     this.fullSeries$.unsubscribe();
