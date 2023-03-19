@@ -92,6 +92,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.fullSeries$.next(data);
     this.chart?.update();
     this.chart?.resetZoom();
+    this.chart?.resize();
   }
 
   constructor(private buildChart: ChartBuilderService) {
