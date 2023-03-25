@@ -1,5 +1,6 @@
 <ion-accordion-group
-  (ionChange)="getAccordionData($event)"
+  #accordion
+  (ionChange)="getAccordionData($any($event))"
   *ngIf="mnemonics$ | async; else menuLoading"
 >
   <ion-accordion
@@ -20,14 +21,12 @@
   </ion-accordion>
 </ion-accordion-group>
 <ng-template #menuLoading>
-  <ion-accordion *ngFor="let _nums of [1, 2, 3, 4, 5]">
-    <ion-item slot="header">
-      <ion-label>
-        <ion-skeleton-text
-          [animated]="true"
-          style="width: 100%; line-height: 22px"
-        ></ion-skeleton-text>
-      </ion-label>
-    </ion-item>
-  </ion-accordion>
+  <ion-item *ngFor="let _nums of [1, 2, 3, 4, 5]">
+    <ion-label>
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 100%; line-height: 24px"
+      ></ion-skeleton-text>
+    </ion-label>
+  </ion-item>
 </ng-template>

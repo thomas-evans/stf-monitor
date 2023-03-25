@@ -5,10 +5,10 @@ import {
   NgModule,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { FullSeriesService } from './data-access/full-series.service';
 import { ChartBuilderComponent } from './ui/chart-builder/chart-builder.component';
 import { IonicModule } from '@ionic/angular';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-series-display',

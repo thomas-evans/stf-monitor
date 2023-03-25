@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
+import { MnemonicDataset } from './interfaces/mnemonic-dataset';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MnemonicsService {
   public getMnemonics() {
-    return this.fetchFromOFR();
+    return this.fetchFromOFR().pipe(shareReplay());
   }
 
-  private fetchFromOFR() {
+  private fetchFromOFR(): Observable<MnemonicDataset['mnemonic'][]> {
     return this.http
-      .get('https://data.financialresearch.gov/v1/metadata/mnemonics')
+      .get<MnemonicDataset['mnemonic'][]>(
+        'https://data.financialresearch.gov/v1/metadata/mnemonics'
+      )
       .pipe(
-        map((value: any) =>
-          value.map((value: string) => value.substring(0, value.indexOf('-')))
+        map((mneData: MnemonicDataset['mnemonic'][]) =>
+          mneData.map((mne: MnemonicDataset['mnemonic']) =>
+            mne.substring(0, mne.indexOf('-'))
+          )
         ),
-        map((value: string) => [...new Set(value)])
+        map((v: MnemonicDataset['mnemonic'][]) => [...new Set(v)])
       );
   }
 

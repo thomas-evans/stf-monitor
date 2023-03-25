@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'stf-monitor',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
 };
 
 export default config;

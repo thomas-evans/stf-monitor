@@ -7,7 +7,6 @@ import { ChartBuilderService } from './utils/chart-builder.service';
 describe('ChartBuilderComponent', () => {
   let component: ChartBuilderComponent;
   let fixture: ComponentFixture<ChartBuilderComponent>;
-  let chartBuilderService: jasmine.SpyObj<ChartBuilderService>;
   const chartBuilderSpy = {
     chartBuilder: jasmine.createSpy('chartBuilder').and.returnValue({
       render: jasmine.createSpy('render').and.callThrough(),
@@ -19,9 +18,6 @@ describe('ChartBuilderComponent', () => {
       imports: [IonicModule.forRoot()],
       providers: [{ provide: ChartBuilderService, useValue: chartBuilderSpy }],
     }).compileComponents();
-    chartBuilderService = TestBed.inject(
-      ChartBuilderService
-    ) as jasmine.SpyObj<ChartBuilderService>;
     fixture = TestBed.createComponent(ChartBuilderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

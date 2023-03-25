@@ -4,8 +4,9 @@ import {
   EventEmitter,
   NgModule,
   Output,
+  ViewChild,
 } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonAccordionGroup, IonicModule } from '@ionic/angular';
 import { MnemonicsService } from './data-access/mnemonics.service';
 import {
   AsyncPipe,
@@ -15,6 +16,7 @@ import {
   NgIf,
 } from '@angular/common';
 import { DataSetComponent } from './ui/data-set/data-set.component';
+import { AccordionGroupCustomEvent } from '@ionic/core/dist/types/components/accordion-group/accordion-group-interface';
 
 @Component({
   selector: 'app-data-set-selector',
@@ -29,9 +31,13 @@ export class DataSetSelectorComponent {
 
   sendSeriesRequest(event: string) {
     this.seriesRequest.emit(event);
+    if (!this.accordionGroup) return;
+    this.accordionGroup.value = '';
   }
+  @ViewChild('accordion') accordionGroup: IonAccordionGroup | undefined;
+
   selectedAccordion: string | undefined;
-  getAccordionData(event: any) {
+  getAccordionData(event: AccordionGroupCustomEvent) {
     this.selectedAccordion = event.detail.value;
   }
 }

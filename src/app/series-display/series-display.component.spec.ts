@@ -7,7 +7,6 @@ import { FullSeriesService } from './data-access/full-series.service';
 describe('SeriesDisplayComponent', () => {
   let component: SeriesDisplayComponent;
   let fixture: ComponentFixture<SeriesDisplayComponent>;
-  let fullSeriesService: jasmine.SpyObj<FullSeriesService>;
   beforeEach(waitForAsync(() => {
     const fullSeriesSpy = jasmine.createSpyObj(FullSeriesService, [
       'getFullSeries',
@@ -17,9 +16,6 @@ describe('SeriesDisplayComponent', () => {
       imports: [IonicModule.forRoot()],
       providers: [{ provide: FullSeriesService, useValue: fullSeriesSpy }],
     }).compileComponents();
-    fullSeriesService = TestBed.inject(
-      FullSeriesService
-    ) as jasmine.SpyObj<FullSeriesService>;
     fixture = TestBed.createComponent(SeriesDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

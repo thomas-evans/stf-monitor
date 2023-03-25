@@ -8,7 +8,6 @@ import { of } from 'rxjs';
 describe('DataSetComponent', () => {
   let component: DataSetComponent;
   let fixture: ComponentFixture<DataSetComponent>;
-  let dataSetService: jasmine.SpyObj<DataSetService>;
   const dataSetSpy = jasmine.createSpyObj('DataSetService', ['getDataSets']);
   const getDataSetsSpy = dataSetSpy.getDataSets.and.returnValue(
     of(['testString'])
@@ -29,9 +28,6 @@ describe('DataSetComponent', () => {
         { provide: MenuController, useValue: menuSpy },
       ],
     }).compileComponents();
-    dataSetService = TestBed.inject(
-      DataSetService
-    ) as jasmine.SpyObj<DataSetService>;
     menuController = TestBed.inject(
       MenuController
     ) as jasmine.SpyObj<MenuController>;
