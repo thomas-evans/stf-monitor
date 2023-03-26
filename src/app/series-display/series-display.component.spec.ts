@@ -24,4 +24,11 @@ describe('SeriesDisplayComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('put a value onto the series$ stream when @Input is triggered', (done) => {
+    spyOn(component.series$, 'next');
+    component.series = 'test';
+    fixture.detectChanges();
+    expect(component.series$.next).toHaveBeenCalledWith('test');
+    done();
+  });
 });
