@@ -11,9 +11,7 @@ export class AppComponent {
   series = '';
   constructor(private menuController: MenuController) {}
   openMenu() {
-    this.menuController.open().catch(() => {
-      throw new Error('Something is not right here');
-    });
+    this.menuController.open().then((r) => r);
   }
   seriesLoaded = false;
   sendSeriesRequest(series: string) {
