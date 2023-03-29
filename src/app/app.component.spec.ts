@@ -17,7 +17,6 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [],
       providers: [{ provide: MenuController, useValue: menuSpy }],
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
@@ -33,6 +32,20 @@ describe('AppComponent', () => {
       component.openMenu();
       fixture.detectChanges();
       expect(openSpy).toHaveBeenCalled();
+      done();
+    });
+  });
+  describe('sendSeriesRequest', () => {
+    it('should take a string and set the series property to it', (done) => {
+      expect(component.series).toEqual('');
+      component.sendSeriesRequest('testString');
+      expect(component.series).toEqual('testString');
+      done();
+    });
+    it('should set the seriesLoaded property to true', (done) => {
+      expect(component.seriesLoaded).toBeFalse();
+      component.sendSeriesRequest('testString');
+      expect(component.seriesLoaded).toBeTrue();
       done();
     });
   });

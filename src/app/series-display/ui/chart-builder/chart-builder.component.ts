@@ -8,7 +8,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import { Chart, ChartConfiguration } from 'chart.js';
 import { seriesData } from '../../data-access/interfaces/full-series';
 import { ReplaySubject } from 'rxjs';
 import { ChartBuilderService } from './utils/chart-builder.service';
@@ -81,28 +81,11 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   ngAfterViewInit() {
-    if (typeof window !== 'undefined') {
-      import('chartjs-plugin-zoom').then((zoomPlugin) => {
-        Chart.register(...registerables, zoomPlugin.default);
-        this.chart = this.buildChart.chartBuilder(
-          this.canvas?.nativeElement,
-          this.chartConfig
-        );
-        this.chart.render();
-      });
-    } else {
-      Chart.register(...registerables);
-      this.chart = this.buildChart.chartBuilder(
-        this.canvas?.nativeElement,
-        this.chartConfig
-      );
-      this.chart.render();
-    }
-    // this.chart = this.buildChart.chartBuilder(
-    //   this.canvas?.nativeElement,
-    //   this.chartConfig
-    // );
-    // this.chart.render();
+    this.chart = this.buildChart.chartBuilder(
+      this.canvas?.nativeElement,
+      this.chartConfig
+    );
+    this.chart.render();
   }
 
   @Input() set fullSeries(data: seriesData) {
