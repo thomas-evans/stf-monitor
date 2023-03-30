@@ -9,16 +9,16 @@ export interface seriesData {
 
 interface timeseries {
   aggregation: [[string, number | null]];
-  disclosure_edits: [[string, string | null]];
+  disclosure_edits?: [[string, string | null]];
 }
 export interface metadata {
   mnemonic: string;
   description: description;
   rights: rights;
   schedule: schedule;
-  parents: [string];
+  parents: string[];
   release: release;
-  children: [string];
+  children: string[];
   unit: unit;
 }
 

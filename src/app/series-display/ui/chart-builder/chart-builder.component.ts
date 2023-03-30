@@ -29,54 +29,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
   chartConfig: ChartConfiguration = {
     type: 'line',
     data: {
-      datasets: [
-        {
-          data: [],
-          backgroundColor: 'rgba(0,24,113,0.2)',
-          borderColor: 'rgba(0,24,113,1)',
-          pointBackgroundColor: 'rgba(0,24,113,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(0,24,113,0.8)',
-          fill: 'origin',
-        },
-      ],
-      labels: [],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          ticks: {
-            callback: function (val, index) {
-              const labelVal = this.getLabelForValue(val as number).split('-');
-              return index % 2 === 0
-                ? `${labelVal[1]}/${labelVal[0].slice(-2)}`
-                : '';
-            },
-          },
-        },
-      },
-      plugins: {
-        zoom: {
-          pan: {
-            enabled: true,
-          },
-          zoom: {
-            wheel: {
-              enabled: true,
-            },
-            pinch: {
-              enabled: true,
-            },
-            mode: 'xy',
-          },
-        },
-        legend: {
-          display: false,
-        },
-      },
+      datasets: [],
     },
   };
 
@@ -102,91 +55,77 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.fullSeries$.subscribe((value) => {
-      this.chartConfig.data.datasets[0].data = value.timeseries.aggregation.map(
-        (value) => value[1]
-      );
-      this.chartConfig.data.labels = value.timeseries.aggregation.map(
-        (value) => value[0]
-      );
       const aggregationNumbers: Array<number> = value.timeseries.aggregation
         .flat()
         .filter((i): i is number => {
           return typeof i === 'number';
         });
-      if (this.chartConfig.options?.plugins?.zoom) {
-        this.chartConfig.options.plugins.zoom.limits = {
-          y: {
-            min: Math.min(...aggregationNumbers),
-            max:
-              Math.max(...aggregationNumbers) +
-              (1 / 100) * Math.max(...aggregationNumbers),
-          },
-        };
-      }
-      if (this.chartConfig.options) {
-        this.chartConfig.options.scales = {
-          ...this.chartConfig.options.scales,
-          y: {
-            ticks: {
-              callback: (val) => {
-                const unit_name = value.metadata?.unit.name;
-                if (unit_name === 'USD') {
-                  return new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    notation: 'compact',
-                  }).format(val as number);
-                } else if (unit_name === 'Percent') {
-                  return new Intl.NumberFormat('en-US', {
-                    style: 'percent',
-                    minimumSignificantDigits: 1,
-                    maximumSignificantDigits: 3,
-                  }).format((val as number) / 100);
-                } else {
-                  return val;
-                }
+      this.chartConfig = {
+        type: 'line',
+        data: {
+          datasets: [
+            {
+              data: value.timeseries.aggregation.map((value) => value[1]),
+              backgroundColor: 'rgba(0,24,113,0.2)',
+              borderColor: 'rgba(0,24,113,1)',
+              pointBackgroundColor: 'rgba(0,24,113,1)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgba(0,24,113,0.8)',
+              fill: 'origin',
+            },
+          ],
+          labels: value.timeseries.aggregation.map((value) => value[0]),
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              ticks: {
+                callback: this.buildChart.xScaleCallback(),
+              },
+            },
+            y: {
+              ticks: {
+                callback: this.buildChart.yScaleCallback(value),
               },
             },
           },
-        };
-      }
-      if (this.chartConfig.options?.plugins) {
-        this.chartConfig.options.plugins = {
-          ...this.chartConfig.options?.plugins,
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                const unit_name = value.metadata?.unit.name;
-                let label = context.dataset.label || '';
-                if (label) {
-                  label += ': ';
-                }
-                if (context.parsed.y !== null) {
-                  if (unit_name === 'USD') {
-                    label += new Intl.NumberFormat('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                      notation: 'compact',
-                    }).format(context.parsed.y as number);
-                    return label;
-                  } else if (unit_name === 'Percent') {
-                    label += new Intl.NumberFormat('en-US', {
-                      style: 'percent',
-                      minimumSignificantDigits: 1,
-                      maximumSignificantDigits: 3,
-                    }).format((context.parsed.y as number) / 100);
-                    return label;
-                  } else {
-                    return label;
-                  }
-                } else {
-                  return label;
-                }
+          plugins: {
+            legend: {
+              display: false,
+            },
+            zoom: {
+              pan: {
+                enabled: true,
+              },
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true,
+                },
+                mode: 'xy',
+              },
+              limits: {
+                y: {
+                  min: Math.min(...aggregationNumbers),
+                  max:
+                    Math.max(...aggregationNumbers) +
+                    (1 / 100) * Math.max(...aggregationNumbers),
+                },
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: this.buildChart.labelCallback(value),
               },
             },
           },
-        };
-      }
+        },
+      };
     });
   }
 }
