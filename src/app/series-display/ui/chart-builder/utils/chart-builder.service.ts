@@ -21,9 +21,9 @@ export class ChartBuilderService {
     };
   }
   yScaleCallback(seriesDataObj: seriesData) {
+    const unit_name = seriesDataObj.metadata?.unit.name;
     return function (this: Scale, tickValue: number | string) {
       if (typeof tickValue !== 'number') return tickValue;
-      const unit_name = seriesDataObj.metadata?.unit.name;
       if (unit_name === 'USD') {
         return new Intl.NumberFormat('en-US', {
           style: 'currency',
@@ -37,7 +37,7 @@ export class ChartBuilderService {
           maximumSignificantDigits: 3,
         }).format(tickValue / 100);
       } else {
-        return tickValue;
+        return String(tickValue);
       }
     };
   }

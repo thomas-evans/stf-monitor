@@ -29,7 +29,18 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
   chartConfig: ChartConfiguration = {
     type: 'line',
     data: {
-      datasets: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: 'rgba(0,24,113,0.2)',
+          borderColor: 'rgba(0,24,113,1)',
+          pointBackgroundColor: 'rgba(0,24,113,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(0,24,113,0.8)',
+          fill: 'origin',
+        },
+      ],
     },
   };
 
@@ -60,68 +71,56 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
         .filter((i): i is number => {
           return typeof i === 'number';
         });
-      this.chartConfig = {
-        type: 'line',
-        data: {
-          datasets: [
-            {
-              data: value.timeseries.aggregation.map((value) => value[1]),
-              backgroundColor: 'rgba(0,24,113,0.2)',
-              borderColor: 'rgba(0,24,113,1)',
-              pointBackgroundColor: 'rgba(0,24,113,1)',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: 'rgba(0,24,113,0.8)',
-              fill: 'origin',
+      this.chartConfig.data.datasets[0].data = value.timeseries.aggregation.map(
+        (value) => value[1]
+      );
+      this.chartConfig.data.labels = value.timeseries.aggregation.map(
+        (value) => value[0]
+      );
+      this.chartConfig.options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            ticks: {
+              callback: this.buildChart.xScaleCallback(),
             },
-          ],
-          labels: value.timeseries.aggregation.map((value) => value[0]),
+          },
+          y: {
+            ticks: {
+              callback: this.buildChart.yScaleCallback(value),
+            },
+          },
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            x: {
-              ticks: {
-                callback: this.buildChart.xScaleCallback(),
-              },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          zoom: {
+            pan: {
+              enabled: true,
             },
-            y: {
-              ticks: {
-                callback: this.buildChart.yScaleCallback(value),
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true,
+              },
+              mode: 'xy',
+            },
+            limits: {
+              y: {
+                min: Math.min(...aggregationNumbers),
+                max:
+                  Math.max(...aggregationNumbers) +
+                  (1 / 100) * Math.max(...aggregationNumbers),
               },
             },
           },
-          plugins: {
-            legend: {
-              display: false,
-            },
-            zoom: {
-              pan: {
-                enabled: true,
-              },
-              zoom: {
-                wheel: {
-                  enabled: true,
-                },
-                pinch: {
-                  enabled: true,
-                },
-                mode: 'xy',
-              },
-              limits: {
-                y: {
-                  min: Math.min(...aggregationNumbers),
-                  max:
-                    Math.max(...aggregationNumbers) +
-                    (1 / 100) * Math.max(...aggregationNumbers),
-                },
-              },
-            },
-            tooltip: {
-              callbacks: {
-                label: this.buildChart.labelCallback(value),
-              },
+          tooltip: {
+            callbacks: {
+              label: this.buildChart.labelCallback(value),
             },
           },
         },
