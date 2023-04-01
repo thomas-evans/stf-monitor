@@ -43,9 +43,7 @@ export class ChartBuilderService {
   }
   labelCallback(seriesDataObj: seriesData): TooltipCallbacks<'line'>['label'] {
     return function (this: TooltipModel, tooltipItem: TooltipItem<'line'>) {
-      if (tooltipItem.label === undefined) return;
       const unit_name = seriesDataObj.metadata?.unit.name;
-      if (tooltipItem.parsed.y === null) return;
       if (unit_name === 'USD') {
         return new Intl.NumberFormat('en-US', {
           style: 'currency',

@@ -11,10 +11,19 @@ import {
 Chart.register(...registerables);
 describe('ChartBuilderService', () => {
   let service: ChartBuilderService;
-
+  let canvas: HTMLCanvasElement | undefined;
+  let testChart: Chart | undefined;
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ChartBuilderService);
+    canvas = document.createElement('canvas');
+    canvas.id = String(Math.random());
+    testChart = new Chart(canvas, chartConfig);
+    testChart.update('none');
+  });
+  afterEach(() => {
+    testChart = undefined;
+    canvas = undefined;
   });
 
   it('should be created', () => {
@@ -22,39 +31,31 @@ describe('ChartBuilderService', () => {
   });
   describe('chartBuilder', () => {
     it('should build a new Chart object when called', () => {
-      const canvas = document.createElement('canvas');
-      let newChart: Chart | undefined = undefined;
-      expect(newChart).toEqual(undefined);
-      newChart = service.chartBuilder(canvas, chartConfig);
-      expect(newChart).toBeInstanceOf(Chart);
+      if (testChart && canvas) {
+        const specialCanvas = document.createElement('canvas');
+        let newChart: Chart | undefined = undefined;
+        expect(newChart).toEqual(undefined);
+        newChart = service.chartBuilder(specialCanvas, chartConfig);
+        expect(newChart).toBeInstanceOf(Chart);
+      }
     });
   });
   describe('xScaleCallback', () => {
     it('should return a truncated date string', () => {
-      const canvas = document.createElement('canvas');
-      canvas.id = String(Math.random());
-      const testChart = new Chart(canvas, chartConfig);
-      testChart.update('none');
-      expect(testChart.scales['x'].ticks[0].label).toEqual('2018-04-02');
-      const xScaleCallback = testChart.options?.scales?.['x']?.ticks;
-      if (xScaleCallback) xScaleCallback.callback = service.xScaleCallback();
-      testChart.update('none');
-      expect(testChart.scales['x'].ticks[0].label).toEqual('04/18');
+      if (testChart && canvas) {
+        testChart.data.datasets[0].data =
+          seriesDataUSD.timeseries.aggregation.map((value) => value[1]);
+        testChart.data.labels = seriesDataUSD.timeseries.aggregation.map(
+          (value) => value[0]
+        );
+        const xScaleCallback = testChart.options?.scales?.['x']?.ticks;
+        if (xScaleCallback) xScaleCallback.callback = service.xScaleCallback();
+        testChart.update('none');
+        expect(testChart.scales['x'].ticks[0].label).toEqual('11/10');
+      }
     });
   });
   describe('yScaleCallback', () => {
-    let canvas: HTMLCanvasElement | undefined;
-    let testChart: Chart | undefined;
-    beforeEach(() => {
-      canvas = document.createElement('canvas');
-      canvas.id = String(Math.random());
-      testChart = new Chart(canvas, chartConfig);
-      testChart.update('none');
-    });
-    afterEach(() => {
-      testChart = undefined;
-      canvas = undefined;
-    });
     it('should return USD currency format if unit_name is USD', () => {
       if (testChart && canvas) {
         testChart.data.datasets[0].data =
