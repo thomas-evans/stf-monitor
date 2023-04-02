@@ -2,7 +2,7 @@
   "name": "stf-monitor",
   "version": "1.1.0",
   "author": "Thomas Evans",
-  "homepage": "https://main--jovial-selkie-84c182.netlify.app/",
+  "homepage": "https://stf-monitor.netlify.app/",
   "scripts": {
     "ng": "ng",
     "start": "ionic serve",
@@ -18,7 +18,10 @@
     "build:ssr": "ng build && ng run app:server",
     "prerender": "ng run app:prerender",
     "prenetlify-build": "CHROME_BIN=$CHROME_PATH ng test --watch=false --code-coverage",
-    "netlify-build": "ng run app:prerender"
+    "netlify-build": "ng run app:prerender",
+    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "repository": "https://github.com/thomas-evans/stf-monitor",
   "private": true,
@@ -58,6 +61,7 @@
     "@angular/compiler-cli": "^15.0.0",
     "@angular/language-service": "^15.0.0",
     "@capacitor/cli": "^4.7.0",
+    "@cypress/schematic": "^2.5.0",
     "@ionic/angular-server": "^6.6.2",
     "@ionic/angular-toolkit": "^8.0.0",
     "@ionic/cli": "^6.20.8",
@@ -86,7 +90,8 @@
     "netlify-plugin-chromium": "^1.1.4",
     "prettier": "^2.8.4",
     "ts-node": "~8.3.0",
-    "typescript": "~4.8.4"
+    "typescript": "~4.8.4",
+    "cypress": "latest"
   },
   "description": "Angular + Ionic app using the Short-term Funding Monitor API from OFR"
 }
