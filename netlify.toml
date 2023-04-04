@@ -4,6 +4,8 @@ publish = 'dist/app/browser'
 
 [[plugins]]
 package = 'netlify-plugin-chromium'
+
+[[plugins]]
 package = 'netlify-plugin-cypress'
 
 [build.environment]
