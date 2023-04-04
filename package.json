@@ -72,6 +72,7 @@
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
+    "cypress": "latest",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-formatter-pretty": "^5.0.0",
@@ -88,10 +89,10 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "netlify-plugin-chromium": "^1.1.4",
+    "netlify-plugin-cypress": "^2.2.1",
     "prettier": "^2.8.4",
     "ts-node": "~8.3.0",
-    "typescript": "~4.8.4",
-    "cypress": "latest"
+    "typescript": "~4.8.4"
   },
   "description": "Angular + Ionic app using the Short-term Funding Monitor API from OFR"
 }

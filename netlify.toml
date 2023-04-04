@@ -1,6 +1,14 @@
 [build]
 command = 'npm run netlify-build'
-publish = "dist/app/browser"
+publish = 'dist/app/browser'
 
 [[plugins]]
 package = 'netlify-plugin-chromium'
+package = 'netlify-plugin-cypress'
+
+[build.environment]
+# cache Cypress binary in local "node_modules" folder
+# so Netlify caches it
+CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
+# set TERM variable for terminal output
+TERM = "xterm"
