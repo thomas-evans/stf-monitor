@@ -9,7 +9,7 @@
         </ion-menu-toggle>
       </ion-buttons>
       <ion-title style="display: inline-flex">
-        <h1>
+        <h1 id="page-title">
           <ion-icon
             style="vertical-align: top; padding-right: 5px"
             name="bar-chart-outline"
@@ -23,7 +23,7 @@
   </ion-header>
   <ion-menu (ionWillOpen)="loadMenu = true" contentId="main-content">
     <ion-content class="ion-padding">
-      <h1>Mnemonics</h1>
+      <h2 id="menu-heading">Mnemonics</h2>
       <ion-accordion-group>
         <app-data-set-selector
           (seriesRequest)="sendSeriesRequest($event)"
@@ -67,7 +67,10 @@
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <ion-button class="ion-margin-top" (click)="openMenu()"
+          <ion-button
+            id="select-mnemonic"
+            class="ion-margin-top"
+            (click)="openMenu()"
             >Select a Mnemonic</ion-button
           >
         </ion-col>
@@ -79,7 +82,6 @@
     ></app-series-display>
   </ion-content>
 </ion-app>
-<!--todo install cyprus and write tests-->
 <!--todo create error handler-->
 <!--todo add pwa stuff-->
 <!--todo make pulsating button-->
