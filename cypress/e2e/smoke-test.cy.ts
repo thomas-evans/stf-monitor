@@ -6,8 +6,6 @@ describe('Smoke Test', () => {
   });
   beforeEach(() => {
     cy.visit('/');
-    cy.intercept('GET', '/svg/bar-chart-outline.svg').as('bar-chart-svg');
-    cy.get('@bar-chart-svg');
   });
   it('Should display the default screen', () => {
     cy.title().should('eq', 'STF Monitor');
@@ -19,7 +17,7 @@ describe('Smoke Test', () => {
     cy.get('canvas').should('not.exist');
   });
   it('Should get a list of Mnemonics and display them in a menu', () => {
-    cy.get('#select-mnemonic').click();
+    cy.get('ion-toolbar ion-button').click();
     cy.get('#menu-heading').should('be.visible');
     cy.get('app-data-set-selector').should(
       'have.descendants',
@@ -31,7 +29,7 @@ describe('Smoke Test', () => {
     );
   });
   it('Should show a series list under the mnemonics', () => {
-    cy.get('#select-mnemonic').click();
+    cy.get('ion-toolbar ion-button').click();
     cy.get('app-data-set-selector ion-accordion-group')
       .children()
       .first()
@@ -40,7 +38,7 @@ describe('Smoke Test', () => {
     cy.get('app-data-set').children().first().should('have.descendants', 'h3');
   });
   it('Should show a card containing a chart and other text when a series is clicked', () => {
-    cy.get('#select-mnemonic').click();
+    cy.get('ion-toolbar ion-button').click();
     cy.get('app-data-set-selector ion-accordion-group')
       .children()
       .first()
