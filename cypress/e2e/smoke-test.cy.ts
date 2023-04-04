@@ -6,7 +6,8 @@ describe('Smoke Test', () => {
   });
   beforeEach(() => {
     cy.visit('/');
-    cy.get('#select-mnemonic').should('have.class', 'hydrated');
+    cy.intercept('GET', '/svg/bar-chart-outline.svg').as('bar-chart-svg');
+    cy.get('@bar-chart-svg');
   });
   it('Should display the default screen', () => {
     cy.title().should('eq', 'STF Monitor');
