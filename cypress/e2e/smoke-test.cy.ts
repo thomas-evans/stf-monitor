@@ -5,7 +5,7 @@ describe('Smoke Test', () => {
     return false;
   });
   beforeEach(() => {
-    cy.visit('/');
+    cy.visit('https://stf-monitor.netlify.app/');
   });
   it('Should display the default screen', () => {
     cy.title().should('eq', 'STF Monitor');
