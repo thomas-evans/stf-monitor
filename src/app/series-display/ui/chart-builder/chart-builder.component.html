@@ -1,5 +1,5 @@
 <ion-card *ngIf="fullSeries$ | async as data">
-  <ion-segment (ionChange)="getSegmentEvent($any($event))" value="yearToDate">
+  <ion-segment (ionChange)="getSegmentEvent($any($event))" value="allTime">
     <ion-segment-button value="week">
       <ion-label>Previous Week</ion-label>
     </ion-segment-button>
