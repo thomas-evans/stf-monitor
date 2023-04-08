@@ -7,8 +7,8 @@ export interface seriesData {
   metadata?: metadata;
 }
 
-interface timeseries {
-  aggregation: [[string, number | null]];
+export interface timeseries {
+  aggregation: [string, number | null][];
   disclosure_edits?: [[string, string | null]];
 }
 export interface metadata {

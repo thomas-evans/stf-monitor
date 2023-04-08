@@ -12,6 +12,8 @@ import { Chart, ChartConfiguration } from 'chart.js';
 import { seriesData } from '../../data-access/interfaces/full-series';
 import { ReplaySubject } from 'rxjs';
 import { ChartBuilderService } from './utils/chart-builder.service';
+import { SegmentCustomEvent } from '@ionic/core/dist/types/components/segment/segment-interface';
+import { TimeFilterService } from './utils/time-filter.service';
 
 @Component({
   selector: 'app-chart-builder',
@@ -20,10 +22,19 @@ import { ChartBuilderService } from './utils/chart-builder.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('canvas')
-  canvas: ElementRef | undefined;
+  constructor(
+    private buildChart: ChartBuilderService,
+    private timeFilter: TimeFilterService
+  ) {}
+
+  @ViewChild('canvas') canvas: ElementRef | undefined;
+
   chart: Chart | undefined;
+
   today: Date = new Date();
+
+  seriesDataSet: seriesData | undefined;
+
   public fullSeries$: ReplaySubject<seriesData> = new ReplaySubject();
 
   chartConfig: ChartConfiguration = {
@@ -53,12 +64,23 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   @Input() set fullSeries(data: seriesData) {
-    this.fullSeries$.next(data);
-    this.chart?.update();
-    this.chart?.resetZoom();
+    this.seriesDataSet = data;
+    this.updateData(data);
   }
 
-  constructor(private buildChart: ChartBuilderService) {}
+  getSegmentEvent(event: SegmentCustomEvent) {
+    if (event.detail.value) {
+      if (this.seriesDataSet !== undefined) {
+        this.updateData(
+          this.timeFilter.filterTime(this.seriesDataSet, event.detail.value)
+        );
+      }
+    }
+  }
+
+  updateData(data: seriesData) {
+    this.fullSeries$.next(data);
+  }
 
   ngOnDestroy(): void {
     this.fullSeries$.unsubscribe();
@@ -88,6 +110,8 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
           },
           y: {
             ticks: {
+              stepSize:
+                value.metadata?.unit.name === 'Percent' ? 0.01 : undefined,
               callback: this.buildChart.yScaleCallback(value),
             },
           },
@@ -125,6 +149,8 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
           },
         },
       };
+      this.chart?.update();
+      this.chart?.resetZoom();
     });
   }
 }
