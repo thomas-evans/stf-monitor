@@ -1,26 +1,36 @@
 <ion-card *ngIf="fullSeries$ | async as data">
-  <!--  todo abbreviate if small screen or add scrolling-->
-  <ion-segment (ionChange)="getSegmentEvent($any($event))" value="yearToDate">
+  <ion-segment
+    (ionChange)="getSegmentEvent($any($event))"
+    [scrollable]="true"
+    value="yearToDate"
+  >
+    <ion-segment-button value="yearToDate">
+      <ion-label class="full-text">Year to Date</ion-label>
+      <ion-label class="abbreviation">YTD</ion-label>
+    </ion-segment-button>
     <ion-segment-button value="week">
-      <ion-label>Previous Week</ion-label>
+      <ion-label class="full-text">Previous Week</ion-label>
+      <ion-label class="abbreviation">Prev. WK</ion-label>
     </ion-segment-button>
     <ion-segment-button value="month">
-      <ion-label>Previous Month</ion-label>
+      <ion-label class="full-text">Previous Month</ion-label>
+      <ion-label class="abbreviation">Prev. MTH</ion-label>
     </ion-segment-button>
     <ion-segment-button value="sixMonths">
-      <ion-label>Previous Six Months</ion-label>
+      <ion-label class="full-text">Previous Six Months</ion-label>
+      <ion-label class="abbreviation">Prev. 6 MTH</ion-label>
     </ion-segment-button>
     <ion-segment-button value="year">
-      <ion-label>Previous Year</ion-label>
+      <ion-label class="full-text">Previous Year</ion-label>
+      <ion-label class="abbreviation">Prev. YR</ion-label>
     </ion-segment-button>
     <ion-segment-button value="tenYears">
-      <ion-label>Previous Ten Years</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="yearToDate">
-      <ion-label>Year to Date</ion-label>
+      <ion-label class="full-text">Previous Ten Years</ion-label>
+      <ion-label class="abbreviation">Prev. 10 YR</ion-label>
     </ion-segment-button>
     <ion-segment-button value="allTime">
-      <ion-label>All Time</ion-label>
+      <ion-label class="full-text">All Time</ion-label>
+      <ion-label class="abbreviation">All</ion-label>
     </ion-segment-button>
   </ion-segment>
   <canvas #canvas class="chart" style="max-height: 40vh"></canvas>

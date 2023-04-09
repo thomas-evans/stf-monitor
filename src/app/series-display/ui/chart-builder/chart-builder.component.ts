@@ -17,6 +17,7 @@ import { ReplaySubject } from 'rxjs';
 import { ChartBuilderService } from './utils/chart-builder.service';
 import { SegmentCustomEvent } from '@ionic/core/dist/types/components/segment/segment-interface';
 import { TimeFilterService } from './utils/time-filter.service';
+import { TimeFrameStrings } from './utils/timeframes';
 
 @Component({
   selector: 'app-chart-builder',
@@ -75,7 +76,10 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (event.detail.value) {
       if (this.seriesDataSet !== undefined) {
         this.updateData(
-          this.timeFilter.filterTime(this.seriesDataSet, event.detail.value)
+          this.timeFilter.filterTime(
+            this.seriesDataSet,
+            event.detail.value as TimeFrameStrings
+          )
         );
       }
     }
