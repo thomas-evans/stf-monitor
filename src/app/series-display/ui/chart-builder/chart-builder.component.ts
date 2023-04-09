@@ -9,7 +9,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Chart, ChartConfiguration } from 'chart.js';
-import { seriesData } from '../../data-access/interfaces/full-series';
+import {
+  seriesData,
+  timeseries,
+} from '../../data-access/interfaces/full-series';
 import { ReplaySubject } from 'rxjs';
 import { ChartBuilderService } from './utils/chart-builder.service';
 import { SegmentCustomEvent } from '@ionic/core/dist/types/components/segment/segment-interface';
@@ -65,7 +68,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() set fullSeries(data: seriesData) {
     this.seriesDataSet = data;
-    this.updateData(data);
+    this.fullSeries$.next(data);
   }
 
   getSegmentEvent(event: SegmentCustomEvent) {
@@ -78,8 +81,11 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  updateData(data: seriesData) {
-    this.fullSeries$.next(data);
+  updateData(data: timeseries['aggregation']) {
+    this.chartConfig.data.datasets[0].data = data.map((value) => value[1]);
+    this.chartConfig.data.labels = data.map((value) => value[0]);
+    this.chart?.update();
+    this.chart?.resetZoom();
   }
 
   ngOnDestroy(): void {
@@ -93,12 +99,7 @@ export class ChartBuilderComponent implements OnInit, OnDestroy, AfterViewInit {
         .filter((i): i is number => {
           return typeof i === 'number';
         });
-      this.chartConfig.data.datasets[0].data = value.timeseries.aggregation.map(
-        (value) => value[1]
-      );
-      this.chartConfig.data.labels = value.timeseries.aggregation.map(
-        (value) => value[0]
-      );
+      this.updateData(this.timeFilter.filterTime(value, 'yearToDate'));
       this.chartConfig.options = {
         responsive: true,
         maintainAspectRatio: false,
