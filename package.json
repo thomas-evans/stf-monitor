@@ -26,13 +26,13 @@
   "repository": "https://github.com/thomas-evans/stf-monitor",
   "private": true,
   "dependencies": {
-    "@angular/common": "^16.0.0-rc.1",
-    "@angular/core": "^16.0.0-rc.1",
-    "@angular/forms": "^16.0.0-rc.1",
-    "@angular/platform-browser": "^16.0.0-rc.1",
-    "@angular/platform-browser-dynamic": "^16.0.0-rc.1",
-    "@angular/platform-server": "^16.0.0-rc.1",
-    "@angular/router": "^16.0.0-rc.1",
+    "@angular/common": "^15.2.7",
+    "@angular/core": "^15.2.7",
+    "@angular/forms": "^15.2.7",
+    "@angular/platform-browser": "^15.2.7",
+    "@angular/platform-browser-dynamic": "^15.2.7",
+    "@angular/platform-server": "^15.2.7",
+    "@angular/router": "^15.2.7",
     "@capacitor/app": "^4.1.1",
     "@capacitor/core": "^4.7.0",
     "@capacitor/haptics": "^4.1.0",
@@ -48,19 +48,19 @@
     "ionicons": "^6.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.0.0-rc.0",
+    "@angular-devkit/build-angular": "^15.2.6",
     "@angular-eslint/builder": "^15.2.1",
     "@angular-eslint/eslint-plugin": "^15.2.1",
     "@angular-eslint/eslint-plugin-template": "^15.2.1",
     "@angular-eslint/schematics": "^15.2.1",
     "@angular-eslint/template-parser": "^15.2.1",
-    "@angular/cli": "^16.0.0-rc.0",
-    "@angular/compiler": "^16.0.0-rc.1",
-    "@angular/compiler-cli": "^16.0.0-rc.1",
-    "@angular/language-service": "^16.0.0-rc.1",
+    "@angular/cli": "^15.2.6",
+    "@angular/compiler": "^15.2.7",
+    "@angular/compiler-cli": "^15.2.7",
+    "@angular/language-service": "^15.2.7",
     "@capacitor/cli": "^4.7.0",
     "@cypress/schematic": "^2.5.0",
     "@ionic/angular-server": "^7.0.1",
@@ -93,7 +93,7 @@
     "netlify-plugin-cypress": "^2.2.1",
     "prettier": "^2.8.4",
     "ts-node": "~8.3.0",
-    "typescript": "~5.0.4"
+    "typescript": "~4.8.4"
   },
   "description": "Angular + Ionic app using the Short-term Funding Monitor API from OFR"
 }
